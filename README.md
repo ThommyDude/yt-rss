@@ -21,6 +21,7 @@ So my plans are as follows
 - [ ] Ability to remove subscriptions.
 - [ ] Ability to edit existing subscriptions. (Although I'm unsure why this would be needed, so maybe I wont do this one 🤔)
 - [ ] Security features? (Doubtfull, as this project isn't made to be hosted on a server and should always be run locally anyway 🤷🏻‍♂️😬)
+  - [X] I at least added `escapeshellarg()` for the absolute minimum of security.
 - [ ] Making it look nice? (Insert JJJ gif laughing before asking if you're serious GIF here.)
 
 ## "_Anything else before we leave?_"

@@ -1,7 +1,7 @@
 <?php
     if(isset($_POST["video-link"])) {
         $outputJSON = false;
-        exec('youtube-dl --ignore-config -s -j ' . $_POST["video-link"] . ' 2>&1', $output, $return_var);
+        exec('youtube-dl --ignore-config -s -j ' . escapeshellarg($_POST["video-link"]) . ' 2>&1', $output, $return_var);
         //var_dump($output[0]);
         if(strpos($output[0], 'ERROR:') === 0) {
             echo '<div class="error">Something went very wrong!<br>' . $output[0] . '</div>';

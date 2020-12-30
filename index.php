@@ -1,17 +1,3 @@
-<?php
-    if(isset($_POST["video-link"])) {
-        $outputJSON = false;
-        exec('youtube-dl --ignore-config -s -j ' . escapeshellarg($_POST["video-link"]) . ' 2>&1', $output, $return_var);
-        //var_dump($output[0]);
-        if(strpos($output[0], 'ERROR:') === 0) {
-            echo '<div class="error">Something went very wrong!<br>' . $output[0] . '</div>';
-        }
-        else {
-            $outputJSON = json_decode($output[0]);
-        }
-    }
-
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -30,21 +16,19 @@
         </div>
         
         <div class="form-holder">
-            <form action="#" method="POST">
+            <form action="#" method="POST" onsubmit="return false;">
                 <span>Input video url to find the channel</span><br/>
-                <input type="text" name="video-link"><br/>
+                <input type="text" name="video-link" required><br/>
                 <input type="submit">
             </form>
         </div>
 
-        <?php
-            if(isset($outputJSON)) {
-                echo '<input type="hidden" id="ytdlUploader" value="' . $outputJSON->uploader . '">';
-                echo '<input type="hidden" id="ytdlChannelID" value="' . $outputJSON->channel_id . '">';
-                echo "<p>Found channel: <strong>" . $outputJSON->uploader . "</strong></p>";
-                echo '<button type="button" id="addToFile">Add to file</button>';
-            }
-        ?>
+        <div class="foundThings">
+            <input type="hidden" id="ytdlUploader" value="">
+            <input type="hidden" id="ytdlChannelID" value="">
+            <p>Found channel: <strong class="foundChannelName"></strong></p>
+            <button type="button" id="addToFile">Add to file</button>
+        </div>
 
         <div class="data-holder"></div>
 

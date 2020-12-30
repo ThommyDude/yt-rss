@@ -11,6 +11,10 @@ function main() {
 
 /* Functions */
 function createEvents() {
+    if(document.querySelector('form')) {
+        document.querySelector('form').addEventListener('submit', formSubmit);
+    }
+
     if(document.querySelector('#convertToJSON') && document.querySelector('#convertToXML')) {
         document.querySelector('#convertToJSON').addEventListener('click', convertXML2JSON);
         document.querySelector('#convertToXML').addEventListener('click', convertJSON2XML);
@@ -167,4 +171,30 @@ function convertXML2JSON() {
 function convertJSON2XML() {
     document.querySelector('#xmlArea').value = vkbeautify.xml(x2js.js2xml(JSON.parse(document.querySelector('#jsonArea').value)));
     createList();
+}
+
+async function formSubmit() {
+    var data = new FormData(document.querySelector('form'));
+
+    await fetch('/script/getInfo.php',
+    {
+        method: 'POST',
+        body: data
+    })
+    .then(response => response.json())
+    .then(result => {
+        //console.log(result);
+        updateFields(result);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occured during fetch process. Check console for more information!');
+    });
+}
+
+async function updateFields(response) {
+    document.querySelector('#ytdlUploader').value = response.uploader;
+    document.querySelector('#ytdlChannelID').value = response.channel_id;
+    document.querySelector('.foundChannelName').innerText = response.uploader;
+    document.querySelector('.foundThings').style.display = "block";
 }

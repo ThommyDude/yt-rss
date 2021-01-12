@@ -23,6 +23,7 @@ So my plans are as follows
 - [ ] Security features? (Doubtfull, as this project isn't made to be hosted on a server and should always be run locally anyway 🤷🏻‍♂️😬)
   - [X] I at least added `escapeshellarg()` for the absolute minimum of security.
 - [ ] Making it look nice? (Insert JJJ gif laughing before asking if you're serious GIF here.)
+  - [X] Added a very simple "spinner" that shows during the fetch to indicate something is actually happening 👍🏻
 
 ## "_Anything else before we leave?_"
 Right. Should probably mention that this project includes a release of vkbeautify ([Homepage](http://www.eslinstructor.net/vkbeautify/) / [Github](https://github.com/vkiryukhin/vkBeautify)), but I honestly couldn't find any info about if they want me to credit them or something in a easyily findable way, but I'll atleast mention it here.\

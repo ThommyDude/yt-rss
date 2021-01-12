@@ -176,6 +176,9 @@ function convertJSON2XML() {
 async function formSubmit() {
     var data = new FormData(document.querySelector('form'));
 
+    document.querySelector('form').classList.add('hidden');
+    document.querySelector('.loader').classList.remove('hidden');
+
     await fetch('/script/getInfo.php',
     {
         method: 'POST',
@@ -183,8 +186,9 @@ async function formSubmit() {
     })
     .then(response => response.json())
     .then(result => {
-        //console.log(result);
         updateFields(result);
+        document.querySelector('form').classList.remove('hidden');
+        document.querySelector('.loader').classList.add('hidden');
     })
     .catch(error => {
         console.error('Error:', error);
@@ -196,5 +200,5 @@ async function updateFields(response) {
     document.querySelector('#ytdlUploader').value = response.uploader;
     document.querySelector('#ytdlChannelID').value = response.channel_id;
     document.querySelector('.foundChannelName').innerText = response.uploader;
-    document.querySelector('.foundThings').style.display = "block";
+    document.querySelector('.foundThings').classList.remove('hidden');
 }

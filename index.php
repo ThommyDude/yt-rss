@@ -21,9 +21,10 @@
                 <input type="text" name="video-link" required><br/>
                 <input type="submit">
             </form>
+            <div class="loader hidden"></div>
         </div>
 
-        <div class="foundThings">
+        <div class="foundThings hidden">
             <input type="hidden" id="ytdlUploader" value="">
             <input type="hidden" id="ytdlChannelID" value="">
             <p>Found channel: <strong class="foundChannelName"></strong></p>
@@ -32,7 +33,7 @@
 
         <div class="data-holder"></div>
 
-        <div class="x2js-holder">
+        <div class="x2js-holder hidden">
             <button id="convertToJSON">XML => JSON</button>
             <button id="convertToXML">XML <= JSON</button>
             <div class="x2js-textarea-holder">

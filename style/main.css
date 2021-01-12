@@ -1,15 +1,38 @@
+/* Global classes */
+.hidden {
+    display: none;
+}
+/* Global classes */
+
+/* Default stuff start */
 .x2js-textarea-holder {
     display: flex;
-}
-
-.x2js-holder {
-    display: none;
 }
 
 ul {
     list-style: none;
 }
+/* Default stuff end */
 
-.foundThings {
-    display: none;
+/* Loader thingy start */
+.loader {
+    border: 10px solid lightgrey;
+    border-top: 10px solid grey;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    animation: spin 1.5s linear infinite;
 }
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Loader thingy end */

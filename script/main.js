@@ -87,27 +87,6 @@ function addFoundToFile() {
                 "_type": "rss",
                 "_xmlUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=" + ytdlChannelID
             });
-    
-            editJson.sort((a, b) => {
-                a = a._title.toLowerCase();
-                b = b._title.toLowerCase();
-                
-                if(a == b) {
-                    return 0;
-                }
-                
-                if(a < b) {
-                    return -1;
-                }
-                
-                if(a > b) {
-                    return 1;
-                }
-            });
-    
-            fileJson.opml.body.outline.outline = editJson;
-            document.querySelector('#jsonArea').value = JSON.stringify(fileJson, undefined, 4);
-            convertJSON2XML();
         }
         else if(double === 'double') {
             alert('Channel "' + ytdlUploader + '" already exists in this file!');
@@ -115,9 +94,28 @@ function addFoundToFile() {
         else if(double === 'overwrite') {
             fileJson.opml.body.outline.outline[doubleIndex]._title = ytdlUploader;
             fileJson.opml.body.outline.outline[doubleIndex]._text = ytdlUploader;
-            document.querySelector('#jsonArea').value = JSON.stringify(fileJson, undefined, 4);
-            convertJSON2XML();
         }
+
+        editJson.sort((a, b) => {
+            a = a._title.toLowerCase();
+            b = b._title.toLowerCase();
+            
+            if(a == b) {
+                return 0;
+            }
+            
+            if(a < b) {
+                return -1;
+            }
+            
+            if(a > b) {
+                return 1;
+            }
+        });
+
+        fileJson.opml.body.outline.outline = editJson;
+        document.querySelector('#jsonArea').value = JSON.stringify(fileJson, undefined, 4);
+        convertJSON2XML();
     }
     else {
         alert("JSON area is empty!");
@@ -156,11 +154,40 @@ function createList() {
         var subTitle = document.createElement('h3');
         subTitle.textContent = sub._title;
 
+        var removeButton = document.createElement('button');
+        removeButton.innerText = "Remove?";
+        removeButton.addEventListener('click', () => {
+            removeSub(sub);
+        });
+
         listItem.appendChild(subTitle);
+        listItem.appendChild(removeButton);
         list.appendChild(listItem);
     }
 
     dataholder.appendChild(list);
+}
+
+function removeSub(delSub) {
+    var data = JSON.parse(document.querySelector('#jsonArea').value);
+    var subs = data.opml.body.outline.outline;
+    var targetIndex = false;
+    
+    for (const [index, sub] of subs.entries()) {
+        if (sub._title == delSub._title && sub._text == delSub._text && sub._xmlUrl == delSub._xmlUrl) {
+            targetIndex = index;
+            break;
+        }
+    }
+
+    //Add are you sure alert/popup?
+    subs.splice(targetIndex, 1);
+
+    data.opml.body.outline.outline = subs;
+
+    document.querySelector('#jsonArea').value = JSON.stringify(data, undefined, 4);
+    convertJSON2XML();
+    createList();
 }
 
 function convertXML2JSON() {
@@ -176,8 +203,16 @@ function convertJSON2XML() {
 async function formSubmit() {
     var data = new FormData(document.querySelector('form'));
 
-    document.querySelector('form').classList.add('hidden');
-    document.querySelector('.loader').classList.remove('hidden');
+    var form = document.querySelector('form');
+    var foundThings = document.querySelector('.foundThings');
+    var loader = document.querySelector('.loader');
+
+    
+    form.classList.add('hidden');
+    if(!foundThings.classList.contains('hidden')) {
+        foundThings.classList.add('hidden');
+    }
+    loader.classList.remove('hidden');
 
     await fetch('/script/getInfo.php',
     {
@@ -187,8 +222,9 @@ async function formSubmit() {
     .then(response => response.json())
     .then(result => {
         updateFields(result);
-        document.querySelector('form').classList.remove('hidden');
-        document.querySelector('.loader').classList.add('hidden');
+        form.classList.remove('hidden');
+        foundThings.classList.remove('hidden');
+        loader.classList.add('hidden');
     })
     .catch(error => {
         console.error('Error:', error);
@@ -200,5 +236,4 @@ async function updateFields(response) {
     document.querySelector('#ytdlUploader').value = response.uploader;
     document.querySelector('#ytdlChannelID').value = response.channel_id;
     document.querySelector('.foundChannelName').innerText = response.uploader;
-    document.querySelector('.foundThings').classList.remove('hidden');
 }

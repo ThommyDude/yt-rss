@@ -12,6 +12,12 @@
 ul {
     list-style: none;
 }
+
+li {
+    display: flex;
+    justify-content: space-between;
+    width: 25%;
+}
 /* Default stuff end */
 
 /* Loader thingy start */

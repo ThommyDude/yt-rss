@@ -18,7 +18,7 @@ My plan was originally to have a full textarea in which you could also manually 
 So my plans are as follows
 
 - [X] Make youtube-dl call dynamic by implementing ~~AJAX~~ fetch.
-- [ ] Ability to remove subscriptions.
+- [X] Ability to remove subscriptions.
 - [ ] Ability to edit existing subscriptions. (Although I'm unsure why this would be needed, so maybe I wont do this one 🤔)
 - [ ] Security features? (Doubtfull, as this project isn't made to be hosted on a server and should always be run locally anyway 🤷🏻‍♂️😬)
   - [X] I at least added `escapeshellarg()` for the absolute minimum of security.

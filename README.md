@@ -3,14 +3,15 @@
 This little project gives a very crude way to update old OPML files that Youtube **_USED TO_** let you download.
 
 ## "_How does that work?_"
-Well, in it's current form it requires you to have youtube-dl ([Homepage](https://youtube-dl.org) / [Github](https://github.com/ytdl-org/youtube-dl)).
-Then you can input a link to a video into the text input field. This will then reload the page to allow youtube-dl to extract the uploader and channel_id from the video.
-Once the page is loaded it should show the name of the channel that has been found.
-At this point you can upload the old rss file (if you've never changed it's name it'll be called `subscription_manager.xml`) and then click the "Add to file" button.
-once you've done that you can click the "Save" button to download the updated file. (by default it'll be called `subscription_manager_updated.xml` for simplicity)
+Well, in it's current form it requires you to have youtube-dl ([Homepage](https://youtube-dl.org) / [Github](https://github.com/ytdl-org/youtube-dl)).\
+You can then input a link to a video into the text input field. This will then make a fetch call to a PHP script which will run the link through youtube-dl to allow it to extract the uploader and channel_id from the video.\
+Once the fetch call is finished, it will show the name of the channel that has been found.\
+During this process you can upload the old rss file (if you've never changed it's name it'll be called `subscription_manager.xml`) and then click the "Add to file" button.
+Once you've done that you can click the "Save" button to download the updated file. (by default it'll be called `subscription_manager_updated.xml` for simplicity)
 
 ## "_But what if I don't have any old RSS files?_"
-Then this project is useless to you, and I'm not even sure why you're here...
+~~Then this project is useless to you, and I'm not even sure why you're here...~~\
+I am thinking of adding the ability to load the [Google Takeout](https://takeout.google.com/takeout/custom/youtube) data and generate a OPML from that, but I haven't looked at that yet.
 
 ## "_Fine, any plans to update this **ever**?_"
 Honestly? Yes.\
@@ -26,6 +27,6 @@ So my plans are as follows
   - [X] Added a very simple "spinner" that shows during the fetch to indicate something is actually happening 👍🏻
 
 ## "_Anything else before we leave?_"
-Right. Should probably mention that this project includes a release of vkbeautify ([Homepage](http://www.eslinstructor.net/vkbeautify/) / [Github](https://github.com/vkiryukhin/vkBeautify)), but I honestly couldn't find any info about if they want me to credit them or something in a easyily findable way, but I'll atleast mention it here.\
+Right. Should probably mention that this project includes a release of vkbeautify ([Homepage](http://www.eslinstructor.net/vkbeautify/) / [Github](https://github.com/vkiryukhin/vkBeautify)), but I honestly couldn't find any info about if they want me to credit them or something in a easily findable way, but I'll atleast mention it here.\
 Also, don't forget to run `npm i` before running this, as it does have a thing to download beforehand.\
 Then just do a `php -S localhost:8080` or something to run it.
